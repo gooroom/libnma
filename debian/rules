@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
+
+%:
+	dh $@ --with gir --without=autoreconf --buildsystem=meson
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--libexecdir=/usr/lib/NetworkManager \
+		-Dgcr=true \
+		-Diso_codes=true \
+		-Dmobile_broadband_provider_info=true \
+		-Dgtk_doc=true \
+		-Dintrospection=true \
+		-Dvapi=true
+
+override_dh_missing:
+	dh_missing --fail-missing

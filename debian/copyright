@@ -1,0 +1,90 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: libnma
+Source: https://ftp.gnome.org/pub/GNOME/sources/libnma/
+
+Files: *
+Copyright: 2008 - 2011, 2017 - 2019 Red Hat, Inc.
+           2018 Lubomir Rintel
+License: GPL-2+
+
+Files: shared/nm-default.h
+       shared/nm-libnm-compat.h
+       src/nma-bar-code-widget.*
+       src/nma-bar-code.*
+       src/nma-vpn-password-dialog.*
+       shared/nm-utils/gsystem-local-alloc.h
+       shared/nm-utils/nm-compat.*
+       shared/nm-utils/nm-macros-internal.h
+       shared/nm-utils/nm-shared-utils.*
+       shared/nm-utils/nm-test-utils.h
+       src/tests/bar-code.c
+       src/tests/cert-chooser.c
+Copyright: 2011 - 2019 Red Hat, Inc.
+           1999, 2000 Eazel, Inc.
+           2012 Colin Walters <walters@verbum.org>
+License: LGPL-2+
+
+Files: src/nma-cert-chooser-button.*
+       src/nma-cert-chooser.*
+       src/nma-cert-chooser-private.h
+       src/nma-file-cert-chooser.c
+       src/nma-mobile-providers.*
+       src/nma-pkcs11-cert-chooser.c
+       src/nma-pkcs11-cert-chooser-dialog.*
+       src/nma-pkcs11-token-login-dialog.*
+       src/nma-version.h.in
+Copyright: 2009 - 2012, 2015 - 2018 Red Hat, Inc.
+           2009 Novell, Inc.
+           2012 Lanedo GmbH
+License: LGPL-2.1+
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General Public
+ License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: LGPL-2+
+ This package is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU Lesser General
+ Public License can be found in "/usr/share/common-licenses/LGPL-2".
+
+License: LGPL-2.1+
+ This package is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU Lesser General
+ Public License can be found in "/usr/share/common-licenses/LGPL-2.1".
