@@ -1,0 +1,435 @@
+diff --git a/src/nma-wifi-dialog.c b/src/nma-wifi-dialog.c
+index 8d585fc..6aeae04 100644
+--- a/src/nma-wifi-dialog.c
++++ b/src/nma-wifi-dialog.c
+@@ -1119,7 +1119,7 @@ internal_init (NMAWifiDialog *self,
+ 	gtk_widget_grab_default (widget);
+ #endif
+ 
+-	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "wifi_dialog"));
++	widget = GTK_WIDGET (gtk_builder_get_object (priv->builder, "scroll_window"));
+ 	if (!widget) {
+ 		g_warning ("Couldn't find Wi-Fi_dialog widget.");
+ 		return FALSE;
+diff --git a/src/wifi.ui b/src/wifi.ui
+index 2c91a6f..254b7cd 100644
+--- a/src/wifi.ui
++++ b/src/wifi.ui
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<!-- Generated with glade 3.20.0 -->
++<!-- Generated with glade 3.38.2 -->
+ <interface domain="libnma">
+   <requires lib="gtk+" version="3.10"/>
+   <object class="GtkListStore" id="model1">
+@@ -24,192 +24,239 @@
+       </row>
+     </data>
+   </object>
+-  <object class="GtkGrid" id="wifi_dialog">
++  <object class="GtkScrolledWindow" id="scroll_window">
+     <property name="visible">True</property>
+-    <property name="can_focus">False</property>
+-    <property name="margin_start">12</property>
+-    <property name="margin_end">12</property>
+-    <property name="margin_top">12</property>
+-    <property name="margin_bottom">12</property>
+-    <property name="row_spacing">12</property>
+-    <property name="column_spacing">12</property>
++    <property name="can-focus">True</property>
++    <property name="shadow-type">in</property>
++    <property name="max-content-height">400</property>
++    <property name="propagate-natural-height">True</property>
+     <child>
+-      <object class="GtkImage" id="image1">
++      <object class="GtkViewport">
+         <property name="visible">True</property>
+-        <property name="can_focus">False</property>
+-        <property name="valign">start</property>
+-        <property name="margin_start">12</property>
+-        <property name="margin_end">12</property>
+-        <property name="margin_top">12</property>
+-        <property name="margin_bottom">12</property>
+-        <property name="icon_name">network-wireless</property>
+-        <property name="icon_size">6</property>
+-      </object>
+-      <packing>
+-        <property name="left_attach">0</property>
+-        <property name="top_attach">0</property>
+-      </packing>
+-    </child>
+-    <child>
+-      <object class="GtkLabel" id="caption_label">
+-        <property name="visible">True</property>
+-        <property name="can_focus">False</property>
+-        <property name="margin_start">12</property>
+-        <property name="margin_end">12</property>
+-        <property name="margin_top">12</property>
+-        <property name="margin_bottom">12</property>
+-        <property name="use_markup">True</property>
+-        <property name="wrap">True</property>
+-        <property name="max_width_chars">50</property>
+-        <property name="xalign">0</property>
+-      </object>
+-      <packing>
+-        <property name="left_attach">1</property>
+-        <property name="top_attach">0</property>
+-      </packing>
+-    </child>
+-    <child>
+-      <object class="GtkGrid" id="table1">
+-        <property name="visible">True</property>
+-        <property name="can_focus">False</property>
+-        <property name="row_spacing">6</property>
+-        <property name="column_spacing">6</property>
++        <property name="can-focus">False</property>
+         <child>
+-          <object class="GtkBox" id="security_vbox">
++          <!-- n-columns=3 n-rows=3 -->
++          <object class="GtkGrid" id="wifi_dialog">
+             <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="hexpand">True</property>
+-            <property name="orientation">vertical</property>
++            <property name="can-focus">False</property>
++            <property name="margin-start">12</property>
++            <property name="margin-end">12</property>
++            <property name="margin-top">12</property>
++            <property name="margin-bottom">12</property>
++            <property name="row-spacing">12</property>
++            <property name="column-spacing">12</property>
++            <child>
++              <object class="GtkImage" id="image1">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="valign">start</property>
++                <property name="margin-start">12</property>
++                <property name="margin-end">12</property>
++                <property name="margin-top">12</property>
++                <property name="margin-bottom">12</property>
++                <property name="icon-name">network-wireless</property>
++                <property name="icon_size">6</property>
++              </object>
++              <packing>
++                <property name="left-attach">0</property>
++                <property name="top-attach">0</property>
++              </packing>
++            </child>
++            <child>
++              <object class="GtkLabel" id="caption_label">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="margin-start">12</property>
++                <property name="margin-end">12</property>
++                <property name="margin-top">12</property>
++                <property name="margin-bottom">12</property>
++                <property name="use-markup">True</property>
++                <property name="wrap">True</property>
++                <property name="max-width-chars">50</property>
++                <property name="xalign">0</property>
++              </object>
++              <packing>
++                <property name="left-attach">1</property>
++                <property name="top-attach">0</property>
++              </packing>
++            </child>
++            <child>
++              <!-- n-columns=3 n-rows=5 -->
++              <object class="GtkGrid" id="table1">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="row-spacing">6</property>
++                <property name="column-spacing">6</property>
++                <child>
++                  <object class="GtkBox" id="security_vbox">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="hexpand">True</property>
++                    <property name="orientation">vertical</property>
++                    <child>
++                      <placeholder/>
++                    </child>
++                  </object>
++                  <packing>
++                    <property name="left-attach">0</property>
++                    <property name="top-attach">4</property>
++                    <property name="width">2</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkLabel" id="security_combo_label">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="label" translatable="yes">Wi-Fi _security</property>
++                    <property name="use-underline">True</property>
++                    <property name="mnemonic-widget">security_combo</property>
++                    <property name="xalign">1</property>
++                  </object>
++                  <packing>
++                    <property name="left-attach">0</property>
++                    <property name="top-attach">3</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkComboBox" id="security_combo">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="hexpand">True</property>
++                    <property name="model">model1</property>
++                    <child>
++                      <object class="GtkCellRendererText" id="renderer1"/>
++                      <attributes>
++                        <attribute name="text">0</attribute>
++                      </attributes>
++                    </child>
++                  </object>
++                  <packing>
++                    <property name="left-attach">1</property>
++                    <property name="top-attach">3</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkLabel" id="network_name_label">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="label" translatable="yes">_Network name</property>
++                    <property name="use-underline">True</property>
++                    <property name="mnemonic-widget">network_name_entry</property>
++                    <property name="xalign">1</property>
++                  </object>
++                  <packing>
++                    <property name="left-attach">0</property>
++                    <property name="top-attach">2</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkEntry" id="network_name_entry">
++                    <property name="visible">True</property>
++                    <property name="can-focus">True</property>
++                    <property name="activates-default">True</property>
++                  </object>
++                  <packing>
++                    <property name="left-attach">1</property>
++                    <property name="top-attach">2</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkLabel" id="connection_label">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="label" translatable="yes">C_onnection</property>
++                    <property name="use-underline">True</property>
++                    <property name="mnemonic-widget">connection_combo</property>
++                    <property name="xalign">1</property>
++                  </object>
++                  <packing>
++                    <property name="left-attach">0</property>
++                    <property name="top-attach">1</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkComboBox" id="connection_combo">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="hexpand">True</property>
++                  </object>
++                  <packing>
++                    <property name="left-attach">1</property>
++                    <property name="top-attach">1</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkLabel" id="device_label">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="label" translatable="yes">Wi-Fi _adapter</property>
++                    <property name="use-underline">True</property>
++                    <property name="mnemonic-widget">device_combo</property>
++                    <property name="xalign">1</property>
++                  </object>
++                  <packing>
++                    <property name="left-attach">0</property>
++                    <property name="top-attach">0</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkComboBox" id="device_combo">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="hexpand">True</property>
++                    <property name="model">model2</property>
++                    <child>
++                      <object class="GtkCellRendererText" id="renderer2"/>
++                      <attributes>
++                        <attribute name="text">0</attribute>
++                      </attributes>
++                    </child>
++                  </object>
++                  <packing>
++                    <property name="left-attach">1</property>
++                    <property name="top-attach">0</property>
++                  </packing>
++                </child>
++                <child>
++                  <placeholder/>
++                </child>
++                <child>
++                  <placeholder/>
++                </child>
++                <child>
++                  <placeholder/>
++                </child>
++                <child>
++                  <placeholder/>
++                </child>
++                <child>
++                  <placeholder/>
++                </child>
++              </object>
++              <packing>
++                <property name="left-attach">0</property>
++                <property name="top-attach">1</property>
++                <property name="width">2</property>
++              </packing>
++            </child>
+             <child>
+               <placeholder/>
+             </child>
+-          </object>
+-          <packing>
+-            <property name="left_attach">0</property>
+-            <property name="top_attach">4</property>
+-            <property name="width">2</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkLabel" id="security_combo_label">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="label" translatable="yes">Wi-Fi _security</property>
+-            <property name="use_underline">True</property>
+-            <property name="mnemonic_widget">security_combo</property>
+-            <property name="xalign">1</property>
+-          </object>
+-          <packing>
+-            <property name="left_attach">0</property>
+-            <property name="top_attach">3</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkComboBox" id="security_combo">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="hexpand">True</property>
+-            <property name="model">model1</property>
+             <child>
+-              <object class="GtkCellRendererText" id="renderer1"/>
+-              <attributes>
+-                <attribute name="text">0</attribute>
+-              </attributes>
++              <placeholder/>
+             </child>
+-          </object>
+-          <packing>
+-            <property name="left_attach">1</property>
+-            <property name="top_attach">3</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkLabel" id="network_name_label">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="label" translatable="yes">_Network name</property>
+-            <property name="use_underline">True</property>
+-            <property name="mnemonic_widget">network_name_entry</property>
+-            <property name="xalign">1</property>
+-          </object>
+-          <packing>
+-            <property name="left_attach">0</property>
+-            <property name="top_attach">2</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkEntry" id="network_name_entry">
+-            <property name="visible">True</property>
+-            <property name="can_focus">True</property>
+-            <property name="activates_default">True</property>
+-          </object>
+-          <packing>
+-            <property name="left_attach">1</property>
+-            <property name="top_attach">2</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkLabel" id="connection_label">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="label" translatable="yes">C_onnection</property>
+-            <property name="use_underline">True</property>
+-            <property name="mnemonic_widget">connection_combo</property>
+-            <property name="xalign">1</property>
+-          </object>
+-          <packing>
+-            <property name="left_attach">0</property>
+-            <property name="top_attach">1</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkComboBox" id="connection_combo">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="hexpand">True</property>
+-          </object>
+-          <packing>
+-            <property name="left_attach">1</property>
+-            <property name="top_attach">1</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkLabel" id="device_label">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="label" translatable="yes">Wi-Fi _adapter</property>
+-            <property name="use_underline">True</property>
+-            <property name="mnemonic_widget">device_combo</property>
+-            <property name="xalign">1</property>
+-          </object>
+-          <packing>
+-            <property name="left_attach">0</property>
+-            <property name="top_attach">0</property>
+-          </packing>
+-        </child>
+-        <child>
+-          <object class="GtkComboBox" id="device_combo">
+-            <property name="visible">True</property>
+-            <property name="can_focus">False</property>
+-            <property name="hexpand">True</property>
+-            <property name="model">model2</property>
+             <child>
+-              <object class="GtkCellRendererText" id="renderer2"/>
+-              <attributes>
+-                <attribute name="text">0</attribute>
+-              </attributes>
++              <placeholder/>
++            </child>
++            <child>
++              <placeholder/>
++            </child>
++            <child>
++              <placeholder/>
+             </child>
+           </object>
+-          <packing>
+-            <property name="left_attach">1</property>
+-            <property name="top_attach">0</property>
+-          </packing>
+         </child>
+       </object>
+-      <packing>
+-        <property name="left_attach">0</property>
+-        <property name="top_attach">1</property>
+-        <property name="width">2</property>
+-      </packing>
+     </child>
+   </object>
+ </interface>
