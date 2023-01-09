@@ -1,0 +1,140 @@
+libnma (1.10.6-1) unstable; urgency=medium
+
+  * New upstream version 1.10.6
+  * Drop patches, merged upstream
+  * Bump Standards-Version to 4.6.2
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 09 Jan 2023 17:03:20 +0100
+
+libnma (1.10.4-2) unstable; urgency=medium
+
+  * gschema: Remove path from eap schema.
+    This one needs to be relocatable, otherwise creating a new VPN
+    connection will fail. (Closes: #1024245)
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 21 Nov 2022 23:29:03 +0100
+
+libnma (1.10.4-1) unstable; urgency=medium
+
+  * New upstream version 1.10.4
+  * Revert "Remove Section on libnma0, Section on libnma-common that duplicate
+    source."
+  * Move org.gnome.nm-applet schema back to network-manager-gnome.
+    The relevant parts that are needed for libnma have been split into a
+    separate schema file named org.gnome.nm-applet.eap.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 07 Nov 2022 23:53:40 +0100
+
+libnma (1.10.2-1) unstable; urgency=medium
+
+  * New upstream version 1.10.2
+    - Do not pop a certificate chooser if nobody clicked the button.
+      (Closes: #1019443)
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 09 Sep 2022 21:07:20 +0200
+
+libnma (1.10.0-1) unstable; urgency=medium
+
+  * New upstream version 1.10.0
+  * Bump Standards-Version to 4.6.1
+  * Drop patches, merged upstream
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 07 Sep 2022 23:07:42 +0200
+
+libnma (1.8.40-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Jeremy Bicha ]
+  * New upstream version 1.8.40
+
+  [ Sebastien Bacher ]
+  * debian/control, debian/rules:
+    - use dh-sequence-gnome and dh_gnome_clean --no-control,
+      replace the gir option by the use of the corresponding sequence
+  * debian/patches/update_potfiles_sources.patch:
+    - include a missing source files for translation
+
+  [ Debian Janitor ]
+  * Remove Section on libnma0, Section on libnma-common that duplicate source
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 17 Jun 2022 11:26:52 -0400
+
+libnma (1.8.38-1) unstable; urgency=medium
+
+  * New upstream version 1.8.38
+  * Drop patches, merged upstream
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 08 Apr 2022 05:08:24 +0200
+
+libnma (1.8.36-1) unstable; urgency=medium
+
+  * New upstream version 1.8.36
+  * Update symbols file for libnma0 and libnma-gtk4-0
+  * Enable all hardening build flags
+  * build: fix libnma-gtk4 gir dependency
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 29 Mar 2022 21:54:10 +0200
+
+libnma (1.8.34-2) experimental; urgency=medium
+
+  [ Jeremy Bicha ]
+  * Build GTK4 library.
+    Add libnma-headers package for shared headers for both GTK3 & GTK4
+  * Split libnma-doc to a separate package
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 28 Mar 2022 19:10:31 +0200
+
+libnma (1.8.34-1) unstable; urgency=medium
+
+  * New upstream version 1.8.34
+  * Drop override for dh_missing
+  * Update debian/copyright
+  * Bump debian/watch to version=4
+  * Tweak long description of libnma-common package
+  * Remove unnecessary version contstraints
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 03 Feb 2022 23:40:05 +0100
+
+libnma (1.8.32-1) unstable; urgency=medium
+
+  * New upstream version 1.8.32
+  * Remove obsolete Breaks/Replaces
+  * Bump Standards-Version to 4.6.0
+  * Set upstream metadata fields: Bug-Submit, Bug-Database, Repository,
+    Repository-Browse
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 25 Aug 2021 09:54:58 +0200
+
+libnma (1.8.30-1) unstable; urgency=medium
+
+  * New upstream version 1.8.30
+  * Remove -Wl,--as-needed from linker flags
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 24 Jun 2020 11:03:10 +0200
+
+libnma (1.8.28-2) unstable; urgency=medium
+
+  * Upload to unstable
+  * Add Build-Depends-Package field to libnma0.symbols
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 22 Apr 2020 17:56:41 +0200
+
+libnma (1.8.28-1) experimental; urgency=medium
+
+  * New upstream version 1.8.28
+  * Rebase patches
+  * Install org.gnome.nm-applet.gschema.xml in libnma-common
+  * Drop debian/clean, no longer needed
+  * Enable Vala bindings
+  * Update symbols file for libnma0
+  * Switch from autotools to meson
+  * Bump debhelper compat level to 13
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 20 Apr 2020 17:47:14 +0200
+
+libnma (1.8.26-1) experimental; urgency=medium
+
+  * First standalone release after the split from network-manager-applet.
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 06 Mar 2020 12:47:57 +0100

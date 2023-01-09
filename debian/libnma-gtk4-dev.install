@@ -1,0 +1,5 @@
+usr/lib/*/libnma-gtk4.so
+usr/lib/*/pkgconfig/libnma-gtk4.pc
+usr/share/gir-1.0/NMA4-1.0.gir
+usr/share/vala/vapi/libnma-gtk4.deps
+usr/share/vala/vapi/libnma-gtk4.vapi
