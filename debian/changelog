@@ -1,3 +1,12 @@
+libnma (1.10.6-1+grm4u1) unstable; urgency=medium
+
+  [ seolhee.sun ]
+  * [356ab998] Hidden wifi settings dialog changed to scrolled window
+  * [5d0afba0] Rebase patches for gooroom-4.0
+  * [318c17ad] Rename patch files
+
+ -- Gooroom Autobuilder <jenkins@gooroom.kr>  Sat, 09 Mar 2024 18:30:55 +0900
+
 libnma (1.10.6-1) unstable; urgency=medium
 
   * New upstream version 1.10.6
