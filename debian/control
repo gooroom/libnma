@@ -1,8 +1,8 @@
 Source: libnma
 Section: libs
 Priority: optional
-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>
-Uploaders: Michael Biebl <biebl@debian.org>
+Maintainer: Gooroom <gooroom@gooroom.kr>
+XSBC-Original-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>
 Build-Depends: debhelper-compat (= 13),
                dh-sequence-gir,
                gnome-pkg-tools,

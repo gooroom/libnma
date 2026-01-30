@@ -1,0 +1,56 @@
+Index: libnma.git/src/nma-ws/nma-ws-wpa-psk.c
+===================================================================
+--- libnma.git.orig/src/nma-ws/nma-ws-wpa-psk.c
++++ libnma.git/src/nma-ws/nma-ws-wpa-psk.c
+@@ -31,8 +31,18 @@ struct _NMAWsWpaPsk {
+ 
+ 	NMConnection *connection;
+ 	gboolean secrets_only;
++	gboolean validate;
+ };
+ 
++typedef enum {
++    ITEM_STORAGE_USER    = 0,
++    ITEM_STORAGE_SYSTEM  = 1,
++    ITEM_STORAGE_ASK     = 2,
++    ITEM_STORAGE_UNUSED  = 3,
++    __ITEM_STORAGE_MAX,
++    ITEM_STORAGE_MAX = __ITEM_STORAGE_MAX - 1,
++} ItemStorageType;
++
+ struct _NMAWsWpaPskClass {
+ 	GtkGridClass parent;
+ };
+@@ -78,6 +88,7 @@ validate (NMAWs *ws, GError **error)
+ 	} else if ((len < 8) || (len > 64)) {
+ 		widget_set_error (self->wpa_psk_entry);
+ 		g_set_error (error, NMA_ERROR, NMA_ERROR_GENERIC, _("invalid wpa-psk: invalid key-length %zu. Must be [8,63] bytes or 64 hex digits"), len);
++		self->validate = FALSE;
+ 		return FALSE;
+ 	} else if (len == 64) {
+ 		/* Hex PSK */
+@@ -85,6 +96,7 @@ validate (NMAWs *ws, GError **error)
+ 			if (!isxdigit (key[i])) {
+ 				widget_set_error (self->wpa_psk_entry);
+ 				g_set_error_literal (error, NMA_ERROR, NMA_ERROR_GENERIC, _("invalid wpa-psk: cannot interpret key with 64 bytes as hex"));
++				self->validate = FALSE;
+ 				return FALSE;
+ 			}
+ 		}
+@@ -93,6 +105,7 @@ validate (NMAWs *ws, GError **error)
+ 
+ 	/* passphrase can be between 8 and 63 characters inclusive */
+ 
++	self->validate = TRUE;
+ 	return TRUE;
+ }
+ 
+@@ -142,7 +155,7 @@ fill_connection (NMAWs *ws, NMConnection
+ 	                             secret_flags, NULL);
+ 
+ 	/* Update secret flags and popup when editing the connection */
+-	if (!self->secrets_only) {
++	if (!self->secrets_only && secret_flags != ITEM_STORAGE_ASK && self->validate == TRUE) {
+ 		nma_utils_update_password_storage (self->wpa_psk_entry, secret_flags,
+ 		                                   NM_SETTING (s_wireless_sec),
+ 		                                   NM_SETTING_WIRELESS_SECURITY_PSK);

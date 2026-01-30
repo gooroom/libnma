@@ -1,2 +1,7 @@
 # false positive, file is generated via gtk-doc
 source-is-missing [html/NMAMobileProvidersDatabase.html]
+# Gooroom local package - not intended for Debian upload
+libnma source: no-nmu-in-changelog
+libnma source: source-nmu-has-incorrect-version-number
+libnma source: latest-debian-changelog-entry-without-new-date
+libnma source: unknown-field Original-Maintainer

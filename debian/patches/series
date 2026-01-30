@@ -1,2 +1,5 @@
 ui-utils-avoid-unnecessary-filling-password.patch
 Fix-header-includes.patch
+gooroom-0001-Allow-creation-of-connections-without-admin-privileges.patch
+gooroom-0002-hidden-wifi-scroll-window-apply.patch
+gooroom-0003-fix-wpa-psk-sigsegv.patch

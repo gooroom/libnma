@@ -1,0 +1,115 @@
+diff --git a/src/nma-wifi-dialog.c b/src/nma-wifi-dialog.c
+index d24e414..626708d 100644
+--- a/src/nma-wifi-dialog.c
++++ b/src/nma-wifi-dialog.c
+@@ -15,6 +15,7 @@
+ #include "nma-wifi-dialog.h"
+ #include "nma-ws.h"
+ #include "nma-eap.h"
++#include "utils.h"
+ 
+ G_DEFINE_TYPE (NMAWifiDialog, nma_wifi_dialog, GTK_TYPE_DIALOG)
+ 
+@@ -1278,6 +1279,9 @@ nma_wifi_dialog_get_connection (NMAWifiDialog *self,
+ 			      NM_SETTING_CONNECTION_UUID, uuid,
+ 			      NULL);
+ 		g_free (uuid);
++		if (utils_default_to_private_connection (priv->client)) {
++			nm_setting_connection_add_permission (s_con, "user", g_get_user_name (), NULL);
++		}
+ 		nm_connection_add_setting (connection, (NMSetting *) s_con);
+ 
+ 		s_wireless = (NMSettingWireless *) nm_setting_wireless_new ();
+diff --git a/src/nma-ws/nma-ws-wep-key.c b/src/nma-ws/nma-ws-wep-key.c
+index 5feaca5..5c32232 100644
+--- a/src/nma-ws/nma-ws-wep-key.c
++++ b/src/nma-ws/nma-ws-wep-key.c
+@@ -159,6 +159,7 @@ static void
+ fill_connection (NMAWs *ws, NMConnection *connection)
+ {
+ 	NMAWsWepKey *self = NMA_WS_WEP_KEY (ws);
++	NMSettingConnection *s_con;
+ 	NMSettingWirelessSecurity *s_wsec;
+ 	NMSettingSecretFlags secret_flags;
+ 	int auth_alg;
+@@ -180,6 +181,12 @@ fill_connection (NMAWs *ws, NMConnection *connection)
+ 	              NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE, self->key_type,
+ 	              NULL);
+ 
++	s_con = nm_connection_get_setting_connection (connection);
++
++	/* If the connection is user-owned, mark the secrets as agent-owned */
++	if (s_con && nm_setting_connection_get_num_permissions (s_con))
++		g_object_set (s_wsec, NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS, NM_SETTING_SECRET_FLAG_AGENT_OWNED, NULL);
++
+ 	for (i = 0; i < 4; i++) {
+ 		if (strlen (self->keys[i]))
+ 			nm_setting_wireless_security_set_wep_key (s_wsec, i, self->keys[i]);
+diff --git a/src/nma-ws/nma-ws-wpa-psk.c b/src/nma-ws/nma-ws-wpa-psk.c
+index 477aca1..831fb9b 100644
+--- a/src/nma-ws/nma-ws-wpa-psk.c
++++ b/src/nma-ws/nma-ws-wpa-psk.c
+@@ -110,12 +110,14 @@ fill_connection (NMAWs *ws, NMConnection *connection)
+ {
+ 	NMAWsWpaPsk *self = NMA_WS_WPA_PSK (ws);
+ 	const char *key;
++	NMSettingConnection *s_con;
+ 	NMSettingWireless *s_wireless;
+ 	NMSettingWirelessSecurity *s_wireless_sec;
+ 	NMSettingSecretFlags secret_flags;
+ 	const char *mode;
+ 	gboolean is_adhoc = FALSE;
+ 
++	s_con = nm_connection_get_setting_connection (connection);
+ 	s_wireless = nm_connection_get_setting_wireless (connection);
+ 	g_return_if_fail (s_wireless);
+ 
+@@ -130,6 +132,10 @@ fill_connection (NMAWs *ws, NMConnection *connection)
+ 	key = gtk_editable_get_text (GTK_EDITABLE (self->wpa_psk_entry));
+ 	g_object_set (s_wireless_sec, NM_SETTING_WIRELESS_SECURITY_PSK, key, NULL);
+ 
++	/* If the connection is user-owned, mark the secrets as agent-owned */
++	if (s_con && nm_setting_connection_get_num_permissions (s_con))
++		g_object_set (s_wireless_sec, NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS, NM_SETTING_SECRET_FLAG_AGENT_OWNED, NULL);
++
+ 	/* Save PSK_FLAGS to the connection */
+ 	secret_flags = nma_utils_menu_to_secret_flags (self->wpa_psk_entry);
+ 	nm_setting_set_secret_flags (NM_SETTING (s_wireless_sec), NM_SETTING_WIRELESS_SECURITY_PSK,
+diff --git a/src/utils/utils.c b/src/utils/utils.c
+index b776e15..62c3215 100644
+--- a/src/utils/utils.c
++++ b/src/utils/utils.c
+@@ -476,3 +476,11 @@ utils_key_filter (void)
+ 
+ 	return filter;
+ }
++
++gboolean
++utils_default_to_private_connection (NMClient *client)
++{
++	NMClientPermissionResult perms;
++	perms = nm_client_get_permission_result (client, NM_CLIENT_PERMISSION_SETTINGS_MODIFY_SYSTEM);
++	return (perms != NM_CLIENT_PERMISSION_RESULT_YES);
++}
+diff --git a/src/utils/utils.h b/src/utils/utils.h
+index a3ec983..c0ad59e 100644
+--- a/src/utils/utils.h
++++ b/src/utils/utils.h
+@@ -11,6 +11,8 @@
+ 
+ #include <net/ethernet.h>
+ 
++#include <nm-client.h>
++
+ gboolean utils_ether_addr_valid (const struct ether_addr *test_addr);
+ 
+ char *utils_hash_ap (GBytes *ssid,
+@@ -24,6 +26,8 @@ char *utils_escape_notify_message (const char *src);
+ char *utils_create_mobile_connection_id (const char *provider,
+                                          const char *plan_name);
+ 
++gboolean utils_default_to_private_connection (NMClient *client);
++
+ #define NMA_ERROR (g_quark_from_static_string ("nma-error-quark"))
+ 
+ typedef enum  {

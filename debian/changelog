@@ -1,3 +1,15 @@
+libnma (1.10.6-7+grm5~alpha1) gooroom-5.0-unstable; urgency=medium
+
+  [ Gooroom ]
+  * local package: Rebased on gooroom-5.0
+  * Add gooroom-0001-Allow-creation-of-connections-without-admin-privileges.patch
+  * Add gooroom-0002-hidden-wifi-scroll-window-apply.patch
+  * Add gooroom-0003-fix-wpa-psk-sigsegv.patch
+    - Port WiFi SIGSEGV fix from gnome-control-center (gooroom-4.0)
+    - wireless-security code moved to libnma in GNOME 48
+
+ -- jongkyung.woo <jkwoo@gooroom.kr>  Fri, 07 Feb 2026 11:00:00 +0900
+
 libnma (1.10.6-7) unstable; urgency=medium
 
   * Rename debian-branch to debian/latest as per DEP-14
