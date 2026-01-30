@@ -1,0 +1,2 @@
+# false positive, file is generated via gtk-doc
+source-is-missing [html/NMAMobileProvidersDatabase.html]

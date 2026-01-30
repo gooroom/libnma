@@ -1,0 +1,38 @@
+From: Michael Biebl <biebl@debian.org>
+Date: Sun, 3 Mar 2024 00:41:16 +0100
+Subject: Fix header includes
+
+Those header files use Gtk* or NMConnection, so need the proper
+includes.
+
+Fixes: #26
+---
+ src/nma-bar-code-widget.h | 2 ++
+ src/nma-mobile-wizard.h   | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/src/nma-bar-code-widget.h b/src/nma-bar-code-widget.h
+index 42e2148..d43ae46 100644
+--- a/src/nma-bar-code-widget.h
++++ b/src/nma-bar-code-widget.h
+@@ -19,6 +19,8 @@
+ #define __NMA_BAR_CODE_WIDGET_H__
+ 
+ #include <glib-object.h>
++#include <gtk/gtk.h>
++#include <NetworkManager.h>
+ 
+ #include "nma-version.h"
+ 
+diff --git a/src/nma-mobile-wizard.h b/src/nma-mobile-wizard.h
+index b14e724..34a8108 100644
+--- a/src/nma-mobile-wizard.h
++++ b/src/nma-mobile-wizard.h
+@@ -11,6 +11,7 @@
+ #define __NMA_MOBILE_WIZARD_H__
+ 
+ #include <glib.h>
++#include <gtk/gtk.h>
+ #include <NetworkManager.h>
+ #include <nm-device.h>
+ 

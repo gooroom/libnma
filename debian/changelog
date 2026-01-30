@@ -1,18 +1,58 @@
-libnma (1.10.6-1+grm4u2) unstable; urgency=medium
+libnma (1.10.6-7) unstable; urgency=medium
 
-  [ cjheo ]
-  * [16168f69] Update gooroom-01-hidden-wifi-scroll-window-apply.patch for gtk-4.0
+  * Rename debian-branch to debian/latest as per DEP-14
 
- -- Gooroom Autobuilder <jenkins@gooroom.kr>  Fri, 30 Aug 2024 16:10:39 +0900
+ -- Michael Biebl <biebl@debian.org>  Fri, 15 Aug 2025 19:51:16 +0200
 
-libnma (1.10.6-1+grm4u1) unstable; urgency=medium
+libnma (1.10.6-6) unstable; urgency=medium
 
-  [ seolhee.sun ]
-  * [356ab998] Hidden wifi settings dialog changed to scrolled window
-  * [5d0afba0] Rebase patches for gooroom-4.0
-  * [318c17ad] Rename patch files
+  * Bump Standards-Version to 4.7.2
+  * Replace Build-Depends on libgirepsitory1.0-dev with
+    gobject-introspection (>= 1.80)
 
- -- Gooroom Autobuilder <jenkins@gooroom.kr>  Sat, 09 Mar 2024 18:30:55 +0900
+ -- Michael Biebl <biebl@debian.org>  Fri, 15 Aug 2025 12:21:06 +0200
+
+libnma (1.10.6-5) unstable; urgency=medium
+
+  * Update Homepage URL
+  * Get rid of dh_gnome which clutters the build output significantly.
+    Instead use dh_translations directly if available.
+    For that, replace the dh-sequence-gnome Build-Depends with gnome-pkg-tools
+    which doesn't run anything on Debian and ensures dh_translations is
+    available on Ubuntu.
+    Thanks to Jeremy Bicha
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 05 Sep 2024 22:02:27 +0200
+
+libnma (1.10.6-4) unstable; urgency=medium
+
+  * Add lintian-override for source-is-missing
+    [html/NMAMobileProvidersDatabase.html]
+  * Add ${gir:Depends} and ${gir:Provides} to all relevant packages
+  * Bump Standards-Version to 4.7.0, no further changes required
+  * Add Build-Depends on gir1.2-gtk-3.0-dev, gir1.2-gtk-4.0-dev and
+    gir1.2-nm-1.0-dev as suggested by dh_girepository
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 27 Aug 2024 15:08:57 +0200
+
+libnma (1.10.6-3) unstable; urgency=medium
+
+  * Fix header includes
+  * Enable GCR support (Closes: #1065018)
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 03 Mar 2024 01:07:27 +0100
+
+libnma (1.10.6-2) unstable; urgency=medium
+
+  * Use default libexecdir path.
+    Stop overriding the default libexecdir path in debian/rules.
+    It's not actually needed and the main network-manager now also uses the
+    default path, which is /usr/libexec.
+  * ui-utils: Avoid unnecessary filling password.
+    Fixes a crash in gnome-control-center.
+    Patch cherry-picked from upstream Git. (Closes: #1053689)
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 20 Nov 2023 20:31:24 +0100
 
 libnma (1.10.6-1) unstable; urgency=medium
 

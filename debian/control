@@ -5,7 +5,7 @@ Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.
 Uploaders: Michael Biebl <biebl@debian.org>
 Build-Depends: debhelper-compat (= 13),
                dh-sequence-gir,
-               dh-sequence-gnome,
+               gnome-pkg-tools,
                meson (>= 0.46.0),
                gettext (>= 0.18),
                mobile-broadband-provider-info,
@@ -13,19 +13,22 @@ Build-Depends: debhelper-compat (= 13),
                libgtk-4-dev,
                libglib2.0-dev,
                libnm-dev,
-               libgcr-3-dev,
-               libgck-1-dev,
+               libgcr-4-dev,
+               libgck-2-dev,
                iso-codes,
-               libgirepository1.0-dev,
+               gobject-introspection (>= 1.80),
+               gir1.2-gtk-3.0-dev,
+               gir1.2-gtk-4.0-dev,
+               gir1.2-nm-1.0-dev,
                valac,
                gtk-doc-tools,
                libgtk-3-doc,
                libglib2.0-doc,
-Standards-Version: 4.6.2
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Vcs-Git: https://salsa.debian.org/utopia-team/libnma.git
 Vcs-Browser: https://salsa.debian.org/utopia-team/libnma
-Homepage: https://www.gnome.org/projects/NetworkManager/
+Homepage: https://networkmanager.dev
 
 Package: libnma0
 Architecture: linux-any
@@ -67,10 +70,11 @@ Multi-Arch: same
 Section: libdevel
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         ${gir:Depends},
          libnma0 (= ${binary:Version}),
          libnma-headers (= ${binary:Version}),
-         gir1.2-nma-1.0 (= ${binary:Version}),
          libnm-dev
+Provides: ${gir:Provides}
 Description: NetworkManager GTK 3 GUI library - development files
  The libnma library provides GTK 3 dialogs and UI utilities for NetworkManager.
  .
@@ -100,10 +104,11 @@ Multi-Arch: same
 Section: libdevel
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         ${gir:Depends},
          libnma-gtk4-0 (= ${binary:Version}),
          libnma-headers (= ${binary:Version}),
-         gir1.2-nma4-1.0 (= ${binary:Version}),
          libnm-dev
+Provides: ${gir:Provides}
 Description: NetworkManager GTK 4 GUI library - development files
  The libnma-gtk4 library provides GTK 4 dialogs and UI utilities for
  NetworkManager.

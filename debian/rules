@@ -8,15 +8,15 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		--libexecdir=/usr/lib/NetworkManager \
 		-Dgcr=true \
 		-Diso_codes=true \
 		-Dlibnma_gtk4=true \
+		-Dgcr=true \
 		-Dmobile_broadband_provider_info=true \
 		-Dgtk_doc=true \
 		-Dintrospection=true \
 		-Dvapi=true
 
-# Needed for generating a translation template on Ubuntu
-override_dh_gnome_clean:
-	dh_gnome_clean --no-control
+# Support Ubuntu language packs
+execute_before_dh_installdeb:
+	if command -v dh_translations>/dev/null; then dh_translations; fi
