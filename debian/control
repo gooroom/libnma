@@ -26,8 +26,8 @@ Build-Depends: debhelper-compat (= 13),
                libglib2.0-doc,
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
-Vcs-Git: https://salsa.debian.org/utopia-team/libnma.git
-Vcs-Browser: https://salsa.debian.org/utopia-team/libnma
+Vcs-Git: https://github.com/gooroom/libnma.git
+Vcs-Browser: https://github.com/gooroom/libnma
 Homepage: https://networkmanager.dev
 
 Package: libnma0
